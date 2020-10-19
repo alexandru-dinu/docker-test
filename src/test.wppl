@@ -1,0 +1,12 @@
+var f = function () {
+    var x = gaussian({mu: 0, sigma: 1})
+    condition(x > 0)
+    return x
+}
+
+var m = Infer({model: f, method: "rejection"})
+console.log('----------------')
+console.log('Hello from WebPPL')
+console.log('Sampling from gaussian > 0')
+console.log('----------------')
+console.log(sample(m))

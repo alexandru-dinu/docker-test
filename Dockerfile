@@ -1,12 +1,21 @@
-FROM python:3
+FROM nikolaik/python-nodejs:latest
 
-WORKDIR /src
+# create workdir
+RUN mkdir -p /usr/src
+WORKDIR /usr/src
 
 COPY requirements.txt .
+COPY package.json .
 
+# python deps
 RUN pip install --upgrade pip
 RUN pip install --upgrade -r requirements.txt
 
-COPY /src .
+# node deps
+RUN npm update -g npm
+RUN npm install
 
-CMD python test.py
+# make work tree
+COPY ./src/ ./
+
+CMD npx webppl test.wppl
